@@ -5,11 +5,15 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
+#include "OpenDMX.h"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "ImGui + SFML = <3");
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window);
+    OpenDMX dmx_interface;
+    dmx_interface.start(); //Clears up own resources and threads in deconstructor. Calling stop() is not necessary
+    printf("Status of: DMX Interface: %d\n", dmx_interface.status);
 
     sf::Clock deltaClock;
     while (window.isOpen()) {
