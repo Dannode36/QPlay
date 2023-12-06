@@ -20,7 +20,7 @@ void OpenDMX::stop() {
     }
 }
 
-void OpenDMX::blackout() {
+void OpenDMX::bufferBlackout() {
     memset(buffer, 0, ARRAY_SIZE(buffer));
 }
 
@@ -37,12 +37,21 @@ UCHAR OpenDMX::getChannel(int channel)
 
 void OpenDMX::writeData()
 {
+    UCHAR temp_buffer[ARRAY_SIZE(buffer)]{ 0 };
+
     while (!done)
     {
         initOpenDMX(); //TODO: Does this need to be called every write?
         FT_SetBreakOn(handle);
         FT_SetBreakOff(handle);
-        bytesWritten = write(handle, buffer, ARRAY_SIZE(buffer));
+
+        for (int i = 0; i < ARRAY_SIZE(buffer); i++) {
+            temp_buffer[i] = buffer[i] * masterFaderPercent / 100;
+        }
+
+        printf("C1: %d\n", temp_buffer[1]);
+
+        bytesWritten = write(handle, temp_buffer, ARRAY_SIZE(buffer));
         Sleep(20);
     }
 }

@@ -13,6 +13,10 @@ public:
     bool done = false;
     int bytesWritten = 0;
     FT_STATUS status;
+
+    //FADER VARIABLES
+    UCHAR masterFaderPercent{ 100 }; //0 - 100
+
 private:
     std::unique_ptr<std::thread> writeThread;
 
@@ -20,7 +24,7 @@ public:
     ~OpenDMX();
     void start();
     void stop();
-    void blackout();
+    void bufferBlackout();
     void setChannel(int channel, UCHAR value);
     UCHAR getChannel(int channel);
 
