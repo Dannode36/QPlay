@@ -6,11 +6,14 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Window/Event.hpp>
 #include "OpenDMX.h"
-
+#include <vector>
 int main() {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "ImGui + SFML = <3");
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window);
+
+    //DMX
+    std::vector<UCHAR[512]> cue_list;
     OpenDMX dmx_interface;
     dmx_interface.start(); //Clears up own resources and threads in deconstructor. Calling stop() is not necessary
     printf("Status of: DMX Interface: %d\n", dmx_interface.status);
