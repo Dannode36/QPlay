@@ -8,17 +8,22 @@
 #include <SFML/Window/Event.hpp>
 #include "OpenDMX.h"
 #include <vector>
+#include "Cue.h"
 
 class Application
 {
 private:
-	std::vector<UCHAR[512]> cue_list;
-	OpenDMX dmx_interface;
-	sf::RenderWindow window;
+    std::vector<Cue> cueSequence;
+    std::shared_ptr<Cue> activeCue;
+
+    OpenDMX dmx_interface;
+    sf::RenderWindow window;
 
 public:
-	int Start();
-	void Stop();
+    int Start();
+    void Stop();
+
 private:
-	void SetChannel();
+    void setChannel();
+    void storeLookAsCue(float pos);
 };

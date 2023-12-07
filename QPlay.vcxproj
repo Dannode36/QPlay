@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Cue.h" />
     <ClInclude Include="src\ftd2xx.h" />
     <ClInclude Include="src\OpenDMX.h" />
   </ItemGroup>

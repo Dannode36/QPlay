@@ -58,3 +58,14 @@ int Application::Start()
 void Application::Stop()
 {
 }
+
+void Application::storeLookAsCue(float pos)
+{
+    cueSequence.emplace_back(pos, dmx_interface.buffer);
+    std::sort(cueSequence.begin(),
+        cueSequence.end(),
+        [](const Cue& lhs, const Cue& rhs)
+        {
+            return lhs.number < rhs.number;
+        });
+}
