@@ -4,55 +4,64 @@ OpenDMX::~OpenDMX()
     stop();
 }
 
-void OpenDMX::start()
-{
-    handle = 0;
-    status = FT_Open(0, &handle);
-    writeThread = std::make_unique<std::thread>([this] { writeData(); });
-    setChannel(0, 0);  //Set DMX Start Code
-}
-
-void OpenDMX::stop() {
-    if (writeThread.get() != nullptr && writeThread.get()->joinable()) {
-        done = true;
-        writeThread.get()->join();
-        writeThread.release();
+void OpenDMX::start() {
+    if (!streaming) {
+        handle = 0;
+        status = FT_Open(0, &handle);
+        if (FT_SUCCESS(status)) {
+            writeThread = std::make_unique<std::thread>([this] { writeData(); });
+            setChannel(0, 0);  //Set DMX Start Code
+            connected = true;
+            streaming = true;
+            bufferResetWithValue(0);
+        }
     }
 }
 
-void OpenDMX::bufferBlackout() {
-    memset(buffer, 0, ARRAY_SIZE(buffer));
+void OpenDMX::stop() {
+    streaming = false;
+    if (writeThread.get() != nullptr && writeThread.get()->joinable()) {
+        writeThread.get()->join();
+        writeThread.release();
+    }
+    status = FT_Close(handle);
+    if (FT_SUCCESS(status)) {
+        connected = false;
+    }
+}
+
+void OpenDMX::bufferResetWithValue(UCHAR value) {
+    memset(buffer, value, ARRAY_SIZE(buffer));
 }
 
 void OpenDMX::setChannel(int channel, UCHAR value)
 {
     //C# TRANSLATION TODO: No null check required, maybe validate channel is in array bounds
-    buffer[channel + 1] = value;
+    if (channel < DMX_FIRST_CHANNEL || channel >= DMX_CHANNELS) { return; }
+    buffer[channel - 1] = value;
 }
 
 UCHAR OpenDMX::getChannel(int channel)
 {
-    return buffer[channel];
+    return buffer[channel - 1];
 }
 
 void OpenDMX::writeData()
 {
-    UCHAR temp_buffer[ARRAY_SIZE(buffer)]{ 0 };
+    initOpenDMX(); //TODO: Does this need to be called every write?
+    FT_SetBreakOn(handle);
+    FT_SetBreakOff(handle);
 
-    while (!done)
+    while (streaming)
     {
-        initOpenDMX(); //TODO: Does this need to be called every write?
-        FT_SetBreakOn(handle);
-        FT_SetBreakOff(handle);
-
         for (int i = 0; i < ARRAY_SIZE(buffer); i++) {
-            temp_buffer[i] = buffer[i] * masterFaderPercent / 100;
+            write_buffer[i] = buffer[i] * masterFaderPercent / 100;
         }
 
-        printf("C1: %d\n", temp_buffer[1]);
+        printf("C1: %d\n", write_buffer[0]);
 
-        bytesWritten = write(handle, temp_buffer, ARRAY_SIZE(buffer));
-        Sleep(20);
+        bytesWritten = write(handle, write_buffer, ARRAY_SIZE(buffer));
+        Sleep(10);
     }
 }
 

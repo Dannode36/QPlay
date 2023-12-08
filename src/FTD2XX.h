@@ -104,7 +104,6 @@ enum {
 	FT_DEVICE_LIST_NOT_READY,
 };
 
-
 #define FT_SUCCESS(status) ((status) == FT_OK)
 
 //

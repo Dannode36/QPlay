@@ -8,7 +8,7 @@
 #include <SFML/Window/Event.hpp>
 #include "OpenDMX.h"
 #include <vector>
-#include "Cue.h"
+#include "Programmer/Cue.h"
 
 class Application
 {
@@ -26,4 +26,7 @@ public:
 private:
     void setChannel();
     void storeLookAsCue(float pos);
+
+private:
+    void ImGuiRenderDMXDebug(bool* p_open = NULL);
 };

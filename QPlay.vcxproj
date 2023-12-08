@@ -19,13 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Programmer\Programmer.cpp" />
+    <ClCompile Include="src\ImGuiFunctions.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\OpenDMX.cpp" />
     <ClCompile Include="src\QPlay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Programmer\Fixture.h" />
+    <ClInclude Include="src\Programmer\Programmer.h" />
+    <ClInclude Include="src\ImGuiFunctions.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Cue.h" />
+    <ClInclude Include="src\Programmer\Cue.h" />
     <ClInclude Include="src\ftd2xx.h" />
     <ClInclude Include="src\OpenDMX.h" />
   </ItemGroup>
