@@ -2,6 +2,7 @@
   "dependencies": [
     "imgui",
     "imgui-sfml",
-    "sfml"
+    "sfml",
+    "fmt"
   ]
 }

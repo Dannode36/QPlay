@@ -35,19 +35,24 @@ void OpenDMX::stop() {
 }
 
 void OpenDMX::bufferResetWithValue(UCHAR value) {
-    memset(buffer, value, ARRAY_SIZE(buffer));
+    memset(buffer, value, BUFFER_SIZE);
 }
 
+/// <summary>
+/// Set DMX channel value in the buffer
+/// </summary>
+/// <param name="channel">A number in range 1-512</param>
+/// <param name="value">The 8-bit value to assign to the channel</param>
 void OpenDMX::setChannel(int channel, UCHAR value)
 {
     //C# TRANSLATION TODO: No null check required, maybe validate channel is in array bounds
-    if (channel < DMX_FIRST_CHANNEL || channel >= DMX_CHANNELS) { return; }
-    buffer[channel - 1] = value;
+    if (channel < DMX_FIRST_CHANNEL || channel >= BUFFER_SIZE) { return; }
+    buffer[channel] = value;
 }
 
 UCHAR OpenDMX::getChannel(int channel)
 {
-    return buffer[channel - 1];
+    return buffer[channel];
 }
 
 void OpenDMX::writeData()

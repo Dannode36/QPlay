@@ -14,19 +14,23 @@ class Application
 {
 private:
     std::vector<Cue> cueSequence;
-    std::shared_ptr<Cue> activeCue;
+    Cue* activeCue;
 
     OpenDMX dmx_interface;
     sf::RenderWindow window;
+    bool showImGuiDemoWindow{ false };
 
 public:
     int Start();
     void Stop();
 
 private:
-    void setChannel();
-    void storeLookAsCue(float pos);
+    //void setChannel();
+    bool storeLookAsCue(float pos, bool overwrite);
+    void recallCue(Cue* cue);
 
 private:
     void ImGuiRenderDMXDebug(bool* p_open = NULL);
+    void ImGuiRenderCueControls(bool* p_open = NULL);
+    void ImGuiRenderCueList(std::vector<Cue>& cueSequence);
 };

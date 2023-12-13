@@ -1,4 +1,5 @@
 #include "Application.h"
+#include <fmt/format.h>
 
 int Application::Start()
 {
@@ -33,6 +34,11 @@ int Application::Start()
                 ImGui::SFML::Shutdown(); // will shutdown all windows
                 return 0; // return here so that we don't call Update/Render
             }
+            if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::D && event.key.control && event.key.alt) {
+                    showImGuiDemoWindow = !showImGuiDemoWindow;
+                }
+            }
         }
 
         // Update
@@ -42,15 +48,7 @@ int Application::Start()
         ImGui::SFML::SetCurrentWindow(window);
 
         ImGuiRenderDMXDebug();
-        if (ImGui::Begin("Cues")) {
-            static float cueNumber = 0;
-            ImGui::InputFloat("Cue Number", &cueNumber);
-            if (ImGui::Button("Store Look As Cue")) {
-                cueSequence.emplace_back(cueNumber, dmx_interface.buffer, DMX_CHANNELS);
-            }
-        }
-        ImGui::End();
-        ImGui::ShowDemoWindow();
+        ImGuiRenderCueControls();
 
         window.clear();
         //window.draw(shape);
@@ -65,13 +63,34 @@ void Application::Stop()
 {
 }
 
-void Application::storeLookAsCue(float pos)
-{
-    cueSequence.emplace_back(pos, dmx_interface.buffer, ARRAY_SIZE(dmx_interface.buffer));
+bool Application::storeLookAsCue(float number, bool overwrite) {
+    auto it = std::find_if(cueSequence.begin(), cueSequence.end(), [&number](const Cue& cue) { return cue.number == number; });
+    if (it != cueSequence.end()) {
+        if (!overwrite) {
+            fmt::print("WARNING: Cue with same ID already exists in the sequence\n");
+            ImGui::OpenPopup("cueNumExistsInSeq");
+            return false;
+        }
+    }
+
+    if (overwrite) {
+        cueSequence.erase(it);
+    }
+
+    cueSequence.emplace_back(number, dmx_interface.buffer, BUFFER_SIZE);
     std::sort(cueSequence.begin(),
         cueSequence.end(),
         [](const Cue& lhs, const Cue& rhs)
         {
             return lhs.number < rhs.number;
         });
+    fmt::print("INFO: Added Cue {} to the sequence\n", number);
+   
+    return true;
+}
+
+void Application::recallCue(Cue* cue)
+{
+    activeCue = cue;
+    memcpy(dmx_interface.buffer, cue->buffer, BUFFER_SIZE);
 }
