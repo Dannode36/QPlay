@@ -1,2 +1,2 @@
 # QPlay
- Timeline based lighting que software
+ Timeline based lighting cue software
