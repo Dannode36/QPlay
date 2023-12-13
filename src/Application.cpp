@@ -42,6 +42,14 @@ int Application::Start()
         ImGui::SFML::SetCurrentWindow(window);
 
         ImGuiRenderDMXDebug();
+        if (ImGui::Begin("Cues")) {
+            static float cueNumber = 0;
+            ImGui::InputFloat("Cue Number", &cueNumber);
+            if (ImGui::Button("Store Look As Cue")) {
+                cueSequence.emplace_back(cueNumber, dmx_interface.buffer, DMX_CHANNELS);
+            }
+        }
+        ImGui::End();
         ImGui::ShowDemoWindow();
 
         window.clear();

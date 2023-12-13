@@ -3,7 +3,7 @@
 #include <thread>
 
 #define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])
-constexpr auto DMX_CHANNELS = 512;
+constexpr auto DMX_CHANNELS = 513;
 constexpr auto DMX_FIRST_CHANNEL = 1;
 
 class OpenDMX
@@ -12,8 +12,8 @@ class OpenDMX
 public:
     UCHAR buffer[DMX_CHANNELS] { 255 };
     UCHAR write_buffer[ARRAY_SIZE(buffer)]{ 0 };
-    bool streaming = false;
-    bool connected = false;
+    bool streaming{ false };
+    bool connected{ false };
     FT_STATUS status;
 
     //FADER VARIABLES

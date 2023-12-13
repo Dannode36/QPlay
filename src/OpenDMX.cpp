@@ -1,4 +1,5 @@
 #include "OpenDMX.h"
+#include <iostream>
 OpenDMX::~OpenDMX()
 {
     stop();
@@ -9,11 +10,14 @@ void OpenDMX::start() {
         handle = 0;
         status = FT_Open(0, &handle);
         if (FT_SUCCESS(status)) {
-            writeThread = std::make_unique<std::thread>([this] { writeData(); });
-            setChannel(0, 0);  //Set DMX Start Code
             connected = true;
             streaming = true;
             bufferResetWithValue(0);
+            setChannel(0, 0);  //Set DMX Start Code
+            writeThread = std::make_unique<std::thread>([this] { writeData(); });
+        }
+        else {
+            FT_CyclePort(handle);
         }
     }
 }
@@ -49,11 +53,10 @@ UCHAR OpenDMX::getChannel(int channel)
 void OpenDMX::writeData()
 {
     initOpenDMX(); //TODO: Does this need to be called every write?
-    FT_SetBreakOn(handle);
-    FT_SetBreakOff(handle);
-
     while (streaming)
     {
+        FT_SetBreakOn(handle);
+        FT_SetBreakOff(handle);
         for (int i = 0; i < ARRAY_SIZE(buffer); i++) {
             write_buffer[i] = buffer[i] * masterFaderPercent / 100;
         }

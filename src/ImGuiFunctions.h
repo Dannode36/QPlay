@@ -33,6 +33,7 @@ void Application::ImGuiRenderDMXDebug(bool* p_open) {
         ImGui::Text("DMX Interface Status: %d\n", dmx_interface.status);
 
         if (ImGui::Button("Connect")) {
+            printf("Starting DMX connection\n");
             dmx_interface.start();
         }
         ImGui::SameLine();

@@ -26,6 +26,7 @@
     <ClCompile Include="src\QPlay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Programmer\KeyFrame.h" />
     <ClInclude Include="src\Programmer\Fixture.h" />
     <ClInclude Include="src\Programmer\Programmer.h" />
     <ClInclude Include="src\ImGuiFunctions.h" />
