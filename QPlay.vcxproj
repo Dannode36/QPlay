@@ -19,13 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\imgui_neo_internal.cpp" />
+    <ClCompile Include="include\imgui_neo_sequencer.cpp" />
     <ClCompile Include="src\ImGuiFunctions.cpp" />
     <ClCompile Include="src\Programmer\Programmer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\OpenDMX.cpp" />
+    <ClCompile Include="src\Programmer\Timeline.cpp" />
     <ClCompile Include="src\QPlay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\imgui_neo_internal.h" />
+    <ClInclude Include="include\imgui_neo_sequencer.h" />
     <ClInclude Include="src\Programmer\KeyFrame.h" />
     <ClInclude Include="src\Programmer\Fixture.h" />
     <ClInclude Include="src\Programmer\Programmer.h" />
@@ -34,6 +39,7 @@
     <ClInclude Include="src\Programmer\Cue.h" />
     <ClInclude Include="src\ftd2xx.h" />
     <ClInclude Include="src\OpenDMX.h" />
+    <ClInclude Include="src\Programmer\Timeline.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\FTD2XX.lib" />
@@ -109,6 +115,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +165,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -66,10 +66,8 @@ void OpenDMX::writeData()
             write_buffer[i] = buffer[i] * masterFaderPercent / 100;
         }
 
-        printf("C1: %d\n", write_buffer[0]);
-
         bytesWritten = write(handle, write_buffer, ARRAY_SIZE(buffer));
-        Sleep(10);
+        Sleep(25);
     }
 }
 

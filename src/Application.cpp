@@ -1,5 +1,6 @@
 #include "Application.h"
 #include <fmt/format.h>
+#include "Programmer/Timeline.h"
 
 int Application::Start()
 {
@@ -10,7 +11,18 @@ int Application::Start()
     //DMX
     std::vector<UCHAR[512]> cue_list;
     OpenDMX dmx_interface;
-    dmx_interface.setChannel(0, 255);
+    dmx_interface.start();
+
+    Timeline timeline{ dmx_interface, &currentFrame, 0, 10 * 40 };
+    int groupIndex = timeline.AddGroup("Eclipse Terminator 300R");
+    int automationIndex = timeline.AddAutomation(groupIndex, "Mode", 1);
+    timeline.AddNode(groupIndex, automationIndex, 0, 0);
+    timeline.AddNode(groupIndex, automationIndex, 40 * 5, 255);
+
+    automationIndex = timeline.AddAutomation(groupIndex, "Scale", 3);
+    timeline.AddNode(groupIndex, automationIndex, 0, 0);
+    timeline.AddNode(groupIndex, automationIndex, 40 * 6, 255);
+    timeline.Update(0);
 
     FT_STATUS ftStatus;
     DWORD numDevs;
@@ -22,6 +34,7 @@ int Application::Start()
     else {
         // FT_CreateDeviceInfoList failed
     }
+    sf::Time elapsed_time;
 
     sf::Clock deltaClock;
     while (window.isOpen()) {
@@ -40,16 +53,39 @@ int Application::Start()
                 }
             }
         }
-
         // Update
         const sf::Time dt = deltaClock.restart();
         ImGui::SFML::Update(window, dt);
+
+        if (timelinePlaying && millisecondsPassed) {
+            elapsed_time += dt;
+            while (elapsed_time >= frameDelta) {
+                currentFrame++;
+                elapsed_time -= frameDelta;
+            }
+            printf("Current Frame: %d\n", currentFrame);
+            timeline.Update(currentFrame);
+        }
 
         ImGui::SFML::SetCurrentWindow(window);
 
         ImGuiRenderDMXDebug();
         ImGuiRenderCueControls();
-
+        if (ImGui::Begin("Timeline")) {
+            if (ImGui::Button("Play")) {
+                timelinePlaying = true;
+            }
+            if (ImGui::Button("Pause")) {
+                timelinePlaying = false;
+            }
+            if (ImGui::Button("Stop")) {
+                timelinePlaying = false;
+                currentFrame = 0;
+                timeline.Update(currentFrame);
+            }
+            timeline.Render();
+        }
+        ImGui::End();
         window.clear();
         //window.draw(shape);
         ImGui::SFML::Render(window);
