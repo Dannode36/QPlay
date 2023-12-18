@@ -9,19 +9,17 @@ int Application::Start()
     ImGui::SFML::Init(window);
 
     //DMX
-    std::vector<UCHAR[512]> cue_list;
-    OpenDMX dmx_interface;
     dmx_interface.start();
 
-    Timeline timeline{ dmx_interface, &currentFrame, 0, 10 * 40 };
+    Sequencer timeline{ dmx_interface, &currentFrame, 0, 10 * 40 };
     int groupIndex = timeline.AddGroup("Eclipse Terminator 300R");
     int automationIndex = timeline.AddAutomation(groupIndex, "Mode", 1);
-    timeline.AddNode(groupIndex, automationIndex, 0, 0);
-    timeline.AddNode(groupIndex, automationIndex, 40 * 5, 255);
+    timeline.AddNode(groupIndex, automationIndex, 0, 0, AutomationNodeFlags_Step);
+    timeline.AddNode(groupIndex, automationIndex, 40 * 5, 255, AutomationNodeFlags_Step);
 
     automationIndex = timeline.AddAutomation(groupIndex, "Scale", 3);
-    timeline.AddNode(groupIndex, automationIndex, 0, 0);
-    timeline.AddNode(groupIndex, automationIndex, 40 * 6, 255);
+    timeline.AddNode(groupIndex, automationIndex, 0, 0, AutomationNodeFlags_Lerp);
+    timeline.AddNode(groupIndex, automationIndex, 40 * 6, 255, AutomationNodeFlags_Lerp);
     timeline.Update(0);
 
     FT_STATUS ftStatus;
@@ -57,16 +55,19 @@ int Application::Start()
         const sf::Time dt = deltaClock.restart();
         ImGui::SFML::Update(window, dt);
 
-        if (timelinePlaying && millisecondsPassed) {
+        //Update DMX from timeline
+        if (timelinePlaying) {
             elapsed_time += dt;
             while (elapsed_time >= frameDelta) {
                 currentFrame++;
                 elapsed_time -= frameDelta;
             }
-            printf("Current Frame: %d\n", currentFrame);
+        }
+        if (timelinePlaying || timeline.updateEveryFrame) {
             timeline.Update(currentFrame);
         }
 
+        //Render UI
         ImGui::SFML::SetCurrentWindow(window);
 
         ImGuiRenderDMXDebug();
@@ -75,15 +76,20 @@ int Application::Start()
             if (ImGui::Button("Play")) {
                 timelinePlaying = true;
             }
+            ImGui::SameLine();
             if (ImGui::Button("Pause")) {
                 timelinePlaying = false;
             }
+            ImGui::SameLine();
             if (ImGui::Button("Stop")) {
                 timelinePlaying = false;
                 currentFrame = 0;
                 timeline.Update(currentFrame);
             }
+            ImGui::Checkbox("Active Refresh", &timeline.updateEveryFrame);
+
             timeline.Render();
+            timeline.RenderEditor();
         }
         ImGui::End();
         window.clear();

@@ -30,7 +30,7 @@ public:
     void stop();
     void bufferResetWithValue(UCHAR value);
     void setChannel(int channel, UCHAR value);
-    UCHAR getChannel(int channel);
+    UCHAR getChannel(int channel) const;
 
 private:
     void writeData();

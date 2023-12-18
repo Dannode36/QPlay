@@ -29,8 +29,10 @@
     <ClCompile Include="src\QPlay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\helpers.h" />
     <ClInclude Include="include\imgui_neo_internal.h" />
     <ClInclude Include="include\imgui_neo_sequencer.h" />
+    <ClInclude Include="include\qmath.h" />
     <ClInclude Include="src\Programmer\KeyFrame.h" />
     <ClInclude Include="src\Programmer\Fixture.h" />
     <ClInclude Include="src\Programmer\Programmer.h" />

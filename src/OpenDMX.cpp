@@ -50,7 +50,7 @@ void OpenDMX::setChannel(int channel, UCHAR value)
     buffer[channel] = value;
 }
 
-UCHAR OpenDMX::getChannel(int channel)
+UCHAR OpenDMX::getChannel(int channel) const
 {
     return buffer[channel];
 }

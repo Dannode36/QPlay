@@ -74,6 +74,12 @@
     <ClInclude Include="src\Programmer\Timeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\qmath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\helpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\FTD2XX.lib" />

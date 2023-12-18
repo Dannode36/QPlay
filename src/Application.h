@@ -22,9 +22,7 @@ private:
 
     bool timelinePlaying{ false };
     int32_t currentFrame = 0;
-    int refreshRate = 40;
     sf::Time frameDelta = sf::milliseconds(25); //40Hz
-    int millisecondsPassed = 0;
 public:
     int Start();
     void Stop();
