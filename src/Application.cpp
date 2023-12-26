@@ -1,6 +1,6 @@
 #include "Application.h"
 #include <fmt/format.h>
-#include "Programmer/Timeline.h"
+#include "programmer/Timeline.h"
 
 int Application::Start()
 {
@@ -70,6 +70,7 @@ int Application::Start()
         //Render UI
         ImGui::SFML::SetCurrentWindow(window);
 
+        RenderToolbar();
         ImGuiRenderDMXDebug();
         ImGuiRenderCueControls();
         if (ImGui::Begin("Timeline")) {

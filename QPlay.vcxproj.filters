@@ -24,7 +24,7 @@
     <ClCompile Include="src\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Programmer\Programmer.cpp">
+    <ClCompile Include="src\programmer\Programmer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiFunctions.cpp">
@@ -36,7 +36,7 @@
     <ClCompile Include="include\imgui_neo_sequencer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Programmer\Timeline.cpp">
+    <ClCompile Include="src\programmer\Timeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,25 +44,25 @@
     <ClInclude Include="src\OpenDMX.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ftd2xx.h">
+    <ClInclude Include="src\drivers\ftd2xx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Programmer\Cue.h">
+    <ClInclude Include="src\programmer\Cue.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiFunctions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Programmer\Programmer.h">
+    <ClInclude Include="src\programmer\Programmer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Programmer\Fixture.h">
+    <ClInclude Include="src\programmer\Fixture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Programmer\KeyFrame.h">
+    <ClInclude Include="src\programmer\KeyFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\imgui_neo_internal.h">
@@ -71,7 +71,7 @@
     <ClInclude Include="include\imgui_neo_sequencer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Programmer\Timeline.h">
+    <ClInclude Include="src\programmer\Timeline.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\qmath.h">

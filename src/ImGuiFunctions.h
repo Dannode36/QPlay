@@ -5,6 +5,7 @@
 #include <WTypesbase.h>
 #include "fmt/format.h"
 
+//Helpers
 void ImGuiRenderUCharArray(UCHAR* arr, int length, int wrap, int offset = 0) {
     static ImGuiTableFlags flags = ImGuiTableFlags_Borders | ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_NoHostExtendX;
     ImGui::Text("DMX Output");
@@ -39,6 +40,37 @@ void ImGuiRenderSelectableUCharArray(UCHAR* arr, int& selection, int length, int
             }
         }
         ImGui::EndTable();
+    }
+}
+
+//-----------------------------------------------------------------------------
+//General Application
+//-----------------------------------------------------------------------------
+void Application::RenderToolbar() {
+    if (ImGui::BeginMainMenuBar()) {
+        if (ImGui::BeginMenu("File")) {
+            if (ImGui::MenuItem("New Showfile", "Ctrl+N")) {
+            }
+            if (ImGui::MenuItem("Open Showfile", "Ctrl+O")) {
+            }
+            if (ImGui::MenuItem("Save Showfile", "Ctrl+S")) {
+            }
+            if (ImGui::MenuItem("Save Showfile as..")) {
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Edit")) {
+            if (ImGui::MenuItem("New Showfile", "Ctrl+N")) {
+            }
+            if (ImGui::MenuItem("Open Showfile", "Ctrl+O")) {
+            }
+            if (ImGui::MenuItem("Save Showfile", "Ctrl+S")) {
+            }
+            if (ImGui::MenuItem("Save Showfile as..")) {
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
     }
 }
 

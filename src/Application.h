@@ -33,6 +33,7 @@ private:
     void recallCue(Cue* cue);
 
 private:
+    void RenderToolbar();
     void ImGuiRenderDMXDebug(bool* p_open = NULL);
     void ImGuiRenderCueControls(bool* p_open = NULL);
     void ImGuiRenderCueList(std::vector<Cue>& cueSequence);

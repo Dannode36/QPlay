@@ -1,5 +1,5 @@
 #pragma once
-#include "FTD2XX.h"
+#include "drivers/ftd2xx.h"
 #include <thread>
 
 #define ARRAY_SIZE(arr) sizeof(arr)/sizeof(arr[0])

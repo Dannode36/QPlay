@@ -22,10 +22,10 @@
     <ClCompile Include="include\imgui_neo_internal.cpp" />
     <ClCompile Include="include\imgui_neo_sequencer.cpp" />
     <ClCompile Include="src\ImGuiFunctions.cpp" />
-    <ClCompile Include="src\Programmer\Programmer.cpp" />
+    <ClCompile Include="src\programmer\Programmer.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\OpenDMX.cpp" />
-    <ClCompile Include="src\Programmer\Timeline.cpp" />
+    <ClCompile Include="src\programmer\Timeline.cpp" />
     <ClCompile Include="src\QPlay.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,15 +33,15 @@
     <ClInclude Include="include\imgui_neo_internal.h" />
     <ClInclude Include="include\imgui_neo_sequencer.h" />
     <ClInclude Include="include\qmath.h" />
-    <ClInclude Include="src\Programmer\KeyFrame.h" />
-    <ClInclude Include="src\Programmer\Fixture.h" />
-    <ClInclude Include="src\Programmer\Programmer.h" />
+    <ClInclude Include="src\programmer\KeyFrame.h" />
+    <ClInclude Include="src\programmer\Fixture.h" />
+    <ClInclude Include="src\programmer\Programmer.h" />
     <ClInclude Include="src\ImGuiFunctions.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Programmer\Cue.h" />
-    <ClInclude Include="src\ftd2xx.h" />
+    <ClInclude Include="src\programmer\Cue.h" />
+    <ClInclude Include="src\drivers\ftd2xx.h" />
     <ClInclude Include="src\OpenDMX.h" />
-    <ClInclude Include="src\Programmer\Timeline.h" />
+    <ClInclude Include="src\programmer\Timeline.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\FTD2XX.lib" />
