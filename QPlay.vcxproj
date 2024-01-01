@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Programmer\FixturePatch.cpp" />
     <ClCompile Include="include\imgui_neo_internal.cpp" />
     <ClCompile Include="include\imgui_neo_sequencer.cpp" />
     <ClCompile Include="src\ImGuiFunctions.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="src\QPlay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Programmer\FixturePatch.h" />
     <ClInclude Include="include\helpers.h" />
     <ClInclude Include="include\imgui_neo_internal.h" />
     <ClInclude Include="include\imgui_neo_sequencer.h" />
